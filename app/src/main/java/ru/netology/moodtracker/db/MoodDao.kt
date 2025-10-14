@@ -5,11 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import ru.netology.moodtracker.Mood
-import java.time.DayOfWeek
 import java.time.Instant
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.temporal.ChronoUnit
 
 @Dao
 interface MoodDao {

@@ -70,4 +70,5 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.androidx.lifecycle.viewmodel.compose.android)
+    implementation(libs.androidx.compose.material.icons.core)
 }
