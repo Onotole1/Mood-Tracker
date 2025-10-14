@@ -9,6 +9,9 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
@@ -33,6 +36,28 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+data class MoodColors(
+    val good: Color = Color.Unspecified,
+    val bad: Color = Color.Unspecified,
+    val neutral: Color = Color.Unspecified,
+)
+
+private val lightMoodColors = MoodColors(
+    good = GoodMoodLight,
+    bad = BadMoodLight,
+    neutral = NeutralMoodLight,
+)
+
+private val darkMoodColors = MoodColors(
+    good = GoodMoodDark,
+    bad = BadMoodDark,
+    neutral = NeutralMoodDark,
+)
+
+val LocalMoodColors = compositionLocalOf {
+    MoodColors()
+}
+
 @Composable
 fun MoodTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -50,9 +75,13 @@ fun MoodTrackerTheme(
         else -> LightColorScheme
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    val moodColors = if (darkTheme) darkMoodColors else lightMoodColors
+
+    CompositionLocalProvider(LocalMoodColors provides moodColors) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }

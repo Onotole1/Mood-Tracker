@@ -46,7 +46,7 @@ fun MoodScreenContent(onMoodClicked: (Mood) -> Unit, modifier: Modifier = Modifi
             @Composable
             fun MoodButton(mood: Mood) {
                 TextButton(onClick = { onMoodClicked(mood) }) {
-                    Text(mood.title)
+                    Text(mood.title, color = mood.color)
                 }
             }
 

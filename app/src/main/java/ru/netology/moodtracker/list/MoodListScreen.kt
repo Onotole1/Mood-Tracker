@@ -14,8 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -45,7 +48,20 @@ private fun MoodListScreenContent(moods: List<MoodListItem>, modifier: Modifier 
                 fontWeight = FontWeight.Bold,
             )
             Text(
-                text = "${it.moods[Mood.GOOD]} хороших, ${it.moods[Mood.NEUTRAL]} нейтральных, ${it.moods[Mood.BAD]} плохих",
+                text = buildAnnotatedString {
+                    withStyle(SpanStyle(color = Mood.GOOD.color)) {
+                        append("${it.moods[Mood.GOOD]}")
+                    }
+                    append(" хороших, ")
+                    withStyle(SpanStyle(color = Mood.NEUTRAL.color)) {
+                        append("${it.moods[Mood.NEUTRAL]}")
+                    }
+                    append(" нейтральных, ")
+                    withStyle(SpanStyle(color = Mood.BAD.color)) {
+                        append("${it.moods[Mood.BAD]}")
+                    }
+                    append(" плохих")
+                },
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
